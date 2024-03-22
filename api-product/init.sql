@@ -1,0 +1,12 @@
+INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 1', 10.99, 100);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
+-- INSERT INTO products (name, price, quantity) VALUES ('Product 2', 15.99, 50);
