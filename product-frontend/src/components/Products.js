@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import axios from 'axios';
 import ProductList from './ProductList';
 
 const Products = () => {

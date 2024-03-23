@@ -31,7 +31,7 @@ export class ProductsService {
     return new Promise<Product>((resolve, reject) => {
       db.get('SELECT * FROM products WHERE id = ?', [id], (err, row: Product) => {
         if (err) reject(err);
-        else resolve(row);
+        else resolve(row || null);
       });
     });
   }

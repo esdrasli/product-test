@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import {axios} from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Box } from '@mui/material';
 import ProductForm from './ProductForm';
@@ -8,39 +8,38 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await axios.get('http://localhost:3000/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
     }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
 
   const handleProductCreate = async (newProduct) => {
-    try {
-      const response = await axios.post('http://localhost:3000/products', newProduct);
-      const createdProduct = response.data;
+  try {
+    const response = await axios.post('http://localhost:3000/products', newProduct);
+    const createdProduct = response.data;
+    if (createdProduct.name !== null) {
       setProducts([...products, createdProduct]);
       fetchProducts();
-    } catch (error) {
-      console.error('Error creating product:', error);
-      alert('Erro ao criar o produto.');
+    } else {
+      alert('O nome do produto não pode estar vazio.');
     }
-  };
+  } catch (error) {
+    console.error('Error creating product:', error);
+    alert('Erro ao criar o produto.');
+  }
+};
 
   const handleProductEdit = async (updatedProduct) => {
     try {
       await axios.put(`http://localhost:3000/products/${updatedProduct.id}`, updatedProduct);
-      const updatedProducts = products.map(product =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      );
-      setProducts(updatedProducts);
-      setEditingProductId(null);
       fetchProducts();
       alert('Produto atualizado com sucesso.');
     } catch (error) {
@@ -64,6 +63,13 @@ const ProductList = () => {
     setEditingProductId(null);
   };
 
+  const rows = products?.filter(product => product?.name !== null && product?.name?.trim() !== '').map(product => ({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    quantity: product.quantity
+  }));
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'name', headerName: 'Name', width: 500, editable: true },
@@ -75,15 +81,15 @@ const ProductList = () => {
       width: 200,
       renderCell: (params) => (
         editingProductId === params.row.id ? (
-          <Box>
+          <Box display="flex" justifyContent="flex-end" style={{  gap: '8px' }}>
             <Button variant="contained" color="primary" onClick={() => handleProductEdit(params.row)}>Save</Button>
             <Button variant="contained" color="secondary" onClick={handleProductFormClose}>Cancel</Button>
           </Box>
         ) : (
-          <div>
+          <Box display="flex" justifyContent="flex-end" style={{  gap: '8px' }}>
             <Button variant="contained" color="primary" onClick={() => setEditingProductId(params.row.id)}>Edit</Button>
             <Button variant="contained" color="secondary" onClick={() => handleProductDelete(params.row.id)}>Delete</Button>
-          </div>
+          </Box>
         )
         
       ),
@@ -93,7 +99,7 @@ const ProductList = () => {
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <DataGrid
-        rows={products}
+        rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5, 10, 20]}
