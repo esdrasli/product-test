@@ -12,7 +12,7 @@
 * Clone o repositório do projeto do GitHub:
   
 ``
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/esdrasli/product-test.git
 ``
 
 * Navegue até o diretório do projeto backend:
