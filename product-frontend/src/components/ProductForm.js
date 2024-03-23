@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {axios} from 'axios';
+import axios from 'axios';
 import {NumericFormat} from 'react-number-format';
 import { Button, TextField, Box, Grid } from '@mui/material';
 
